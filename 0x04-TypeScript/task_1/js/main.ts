@@ -1,6 +1,6 @@
 import { WebpackOptionsValidationError } from "webpack"
 
-/* Setup interface */
+/* Setup interface  teacher*/
 
 interface Teacher {
   firstName: string
@@ -12,12 +12,8 @@ interface Teacher {
   [propName: string]: any
 }
 
-var teacher3 = {
-  firstName: "John",
-  lastName: "Doe",
-  fullTimeEmployee: false,
-  yearsOfExperience: 5,
-  location: "London",
-  contract: false,
+/* Setup interface  Directors*/
+
+interface Directors extends Teacher {
+  numberOfReports: number
 }
-console.log(teacher3)
