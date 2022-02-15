@@ -41,3 +41,17 @@ function createEmployee(salary: number | string): Teacher | Director {
   }
   return new Director()
 }
+
+export function isDirector(employee: Teacher | Director): employee is Director {
+  return (employee as Director).workDirectorTasks !== undefined
+}
+
+export function executeWork(
+  employee: TeacherInterface | DirectorInterface,
+): string {
+  if (isDirector(employee)) {
+    return employee.workDirectorTasks()
+  } else {
+    return employee.workTeacherTasks()
+  }
+}
