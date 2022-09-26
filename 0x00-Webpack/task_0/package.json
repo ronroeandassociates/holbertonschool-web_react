@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ronroeandassociates/holbertonschool-web_react/issues"
   },
-  "homepage": "https://github.com/ronroeandassociates/holbertonschool-web_react#readme"
+  "homepage": "https://github.com/ronroeandassociates/holbertonschool-web_react#readme",
+  "dependencies": {
+    "webpack": "^5.74.0"
+  }
 }
