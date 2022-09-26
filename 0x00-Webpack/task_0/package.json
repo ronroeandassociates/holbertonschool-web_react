@@ -1,0 +1,19 @@
+{
+  "name": "task_0",
+  "version": "1.0.0",
+  "description": "0_basic_setup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronroeandassociates/holbertonschool-web_react.git"
+  },
+  "author": "Ron Olsen",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/ronroeandassociates/holbertonschool-web_react/issues"
+  },
+  "homepage": "https://github.com/ronroeandassociates/holbertonschool-web_react#readme"
+}
