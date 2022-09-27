@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/ronroeandassociates/holbertonschool-web_react#readme",
   "devDependencies": {
-    "lodash": "4.17.21",
     "webpack": "5.74.0",
     "webpack-cli": "4.10.0"
   },
