@@ -10,6 +10,7 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "css-loader": "^6.7.1",
+    "eslint-plugin-react": "^7.31.8",
     "file-loader": "^6.2.0",
     "image-webpack-loader": "^8.1.0",
     "style-loader": "^3.3.1",
