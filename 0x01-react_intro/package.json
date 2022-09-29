@@ -1,0 +1,15 @@
+{
+  "name": "0x01-react_intro",
+  "version": "1.0.0",
+  "description": "![0x01-react_intro_banner](https://github.com/ronroeandassociates/assets/blob/master/images/0x01-react_intro_banner.png)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ron Olsen",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "create-react-app": "^1.2.1",
+    "enzyme": "^3.11.0"
+  }
+}
