@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import logo from './Holberton-Logo.jpg'
+import logo from './logo.jpg'
+import { getFullYear, getFooterCopy } from './utils'
 
 export default class App extends Component {
 	render() {
@@ -13,7 +14,7 @@ export default class App extends Component {
 		 		 	<p>Login to access the full dashboard</p>
 	  			</body>
 				<footer className="App-footer">
-					<p>Copyright 2022 - holberton School</p>
+					<p>Copyright {getFullYear()} - {getFooterCopy(true)}</p>
 				</footer>
 			</div>
 		)
