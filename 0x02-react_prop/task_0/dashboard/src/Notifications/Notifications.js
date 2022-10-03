@@ -27,4 +27,4 @@ export default function Notification(props) {
 	  </ul>
 	</div>
   )
-}g
+}
