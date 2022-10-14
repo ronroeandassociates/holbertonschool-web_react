@@ -1,12 +1,17 @@
 import { shallow, mount } from '../../config/setupTests';
+import { StyleSheetTestUtils } from 'aphrodite';
 import React from 'react';
 import BodySection from './BodySection';
 import BodySectionWithMarginBottom from './BodySectionWithMarginBottom';
 
 
 describe('BodySectionWithMarginBottom', () => {
+	beforeEach(() => {
+		StyleSheetTestUtils.suppressStyleInjection();
+	});
+
 	it(`Checks that component correctly renders a <BodySection /> component`, () => {
-		const wrapper = shallow(<BodySectionWithMarginBottom />);
+		const wrapper = shallow(<BodySectionWithMarginBottom title="test"/>);
 		expect(wrapper.find(BodySection).exists()).toBe(true);
 	})
 

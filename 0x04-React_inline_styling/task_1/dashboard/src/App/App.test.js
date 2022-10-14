@@ -1,4 +1,5 @@
 import { shallow, mount } from '../../config/setupTests';
+import { StyleSheetTestUtils } from 'aphrodite';
 import App from './App';
 import Login from '../Login/Login';
 
@@ -7,6 +8,10 @@ window.alert = jest.fn();
 
 // shallow render app component
 describe('<App />', () => {
+	beforeEach(() => {
+		StyleSheetTestUtils.suppressStyleInjection();
+	});
+
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
@@ -51,11 +56,6 @@ describe('<App />', () => {
 		expect(wrapper.find('CourseList').length).toBe(1);
 	})
 
-	// next 2 tests are under review, spyOn() is not working
-	// and I keep getting this error:
-	// TypeError: wrapper.instance(...).keyDownHandler is not a function
-	//
-	// fixed by testing with mount()
 
 	it(`Verifies that alert is called when ctrl-h is pressed`, () => {
 		const wrapper = mount(<App isLoggedIn />);

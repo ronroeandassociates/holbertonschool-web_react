@@ -5,6 +5,11 @@ import Header from './Header';
 
 // shallow render header component
 describe('<Header />', () => {
+	beforeEach(() => {
+		StyleSheetTestUtils.suppressStyleInjection();
+	});
+
+
 	it('Tests that Header renders without crashing', () => {
 		const wrapper = shallow(<Header />);
 		expect(wrapper.exists()).toBe(true);

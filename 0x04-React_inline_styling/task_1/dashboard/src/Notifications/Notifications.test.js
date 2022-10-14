@@ -4,6 +4,11 @@ import NotificationItem from './NotificationItem';
 
 
 describe('<Notifications />', () => {
+	beforeEach(() => {
+		StyleSheetTestUtils.suppressStyleInjection();
+	});
+
+
 	afterEach(() => {
 		jest.clearAllMocks();
 	});

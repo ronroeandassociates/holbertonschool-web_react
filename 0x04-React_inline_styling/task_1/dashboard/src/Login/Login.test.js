@@ -5,6 +5,11 @@ import Login from './Login';
 
 // shallow render login component
 describe('<Login />', () => {
+	beforeEach(() => {
+		StyleSheetTestUtils.suppressStyleInjection();
+	});
+
+
 	it('Tests that Login renders without crashing', () => {
 		const wrapper = shallow(<Login />);
 		expect(wrapper.exists()).toBe(true);
