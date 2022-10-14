@@ -1,69 +1,35 @@
-import React, { Component } from 'react'
-import close_icon from '../assets/close-icon.png'
-import { getLatestNotification } from '../utils/utils'
-import NotificationItem from './NotificationItem'
-import NotificationItemShape from './NotificationItemShape'
+import React, { PureComponent } from 'react'
 import propTypes from 'prop-types'
 
-import './Notifications.css'
 
-
-class Notification extends Component {
-	// function that logs notification id to console
-	markAsRead(id) {
-		console.log(`Notification ${id} has been read`);
-	}
-
+class NotificationItem extends PureComponent {
 	render() {
-		// assign props to local variables
-		const { listNotifications, displayDrawer } = this.props;
-
-		return (
-			<>
-				<div className="menuItem">
-					<p>Your notifications</p>
-				</div>
-				{displayDrawer && (
-					<div className="Notifications">
-						<button style={{
-							position: 'absolute',
-							background: 'transparent',
-							border: 'none',
-							right: '20px',
-						}}
-							aria-label='close'
-							onClick={() => {
-								console.log('Close button has been clicked');
-							}}>
-							<img src={close_icon} alt="close" height="15px" width="15px"></img>
-						</button>
-						<p>Here is the list of notifications</p>
-						<ul>
-							{/* listNotifications is empty condition */}
-							{listNotifications.length === 0 && (
-								<li>
-									<p>No notification available yet</p>
-								</li>
-							)}
-							{/* render listNotifications */}
-							{listNotifications.map(notification => (
-								<NotificationItem key={notification.id} type={notification.type} value={notification.value} html={notification.html} markAsRead={this.markAsRead} id={notification.id} />
-							))}
-						</ul>
-					</div>
-				)}
-			</>
-		)
+		// props:
+		// - type: string, required, default: 'default'
+		// - value: string
+		// - html: object with key '__html' and value: string
+		if ((this.props.type && this.props.value) && (typeof this.props.type === 'string' && typeof this.props.value === 'string') && (!this.props.html)) return(<li data-notification-type={this.props.type} onClick={this.props.markAsRead}>{this.props.value}</li>)
+		if ((!this.props.type) && (this.props.html) && (this.props.html.__html)) return(<li data-notification-type="default" dangerouslySetInnerHTML={this.props.html} onClick={this.props.markAsRead}></li>)
+		if ((this.props.type) && (this.props.html) && (this.props.html.__html)) return(<li data-notification-type={this.props.type} dangerouslySetInnerHTML={this.props.html} onClick={this.props.markAsRead}></li>)
+		return(<li data-notification-type="default" onClick={this.props.markAsRead}>NotificationItem: invalid props</li>)
 	}
 }
 
 
-Notification.defaultProps = {
-	displayDrawer: false
+NotificationItem.propTypes = {
+	type: propTypes.string,
+	value: propTypes.string,
+	html: propTypes.shape({
+		__html: propTypes.string,
+	}),
+	markAsRead: propTypes.func,
+	id: propTypes.number,
 }
 
-Notification.propTypes = {
-	displayDrawer: propTypes.bool
+NotificationItem.defaultProps = {
+	type: 'default',
+	markAsRead: () => {},
+	id: 0,
 }
 
-export default Notification
+export default NotificationItem
