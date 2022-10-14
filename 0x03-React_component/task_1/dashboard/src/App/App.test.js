@@ -45,9 +45,6 @@ describe('<App />', () => {
 		expect(wrapper.find('CourseList').length).toBe(1);
 	})
 
-	// next 2 tests are under review, spyOn() is not working
-	// and I keep getting this error:
-	// TypeError: wrapper.instance(...).keyDownHandler is not a function
 
 	it(`Verifies that alert is called when ctrl-h is pressed`, () => {
 		const AlertSpy = jest.spyOn(window, 'alert');
