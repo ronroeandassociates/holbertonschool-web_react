@@ -1,27 +1,35 @@
-import { shallow } from 'enzyme';
-import React from 'react';
-import NotificationItem from './NotificationItem';
+import React, { PureComponent } from 'react'
+import propTypes from 'prop-types'
 
 
-// shallow render NotificationItem component
-describe('<NotificationItem />', () => {
-	it('Tests that NotificationItem renders without crashing', () => {
-		const wrapper = shallow(<NotificationItem />);
-		expect(wrapper.exists()).toBe(true);
-	})
+class NotificationItem extends PureComponent {
+	render() {
+		// props:
+		// - type: string, required, default: 'default'
+		// - value: string
+		// - html: object with key '__html' and value: string
+		if ((this.props.type && this.props.value) && (typeof this.props.type === 'string' && typeof this.props.value === 'string') && (!this.props.html)) return(<li data-notification-type={this.props.type} onClick={this.props.markAsRead}>{this.props.value}</li>)
+		if ((!this.props.type) && (this.props.html) && (this.props.html.__html)) return(<li data-notification-type="default" dangerouslySetInnerHTML={this.props.html} onClick={this.props.markAsRead}></li>)
+		if ((this.props.type) && (this.props.html) && (this.props.html.__html)) return(<li data-notification-type={this.props.type} dangerouslySetInnerHTML={this.props.html} onClick={this.props.markAsRead}></li>)
+		return(<li data-notification-type="default" onClick={this.props.markAsRead}>NotificationItem: invalid props</li>)
+	}
+}
 
-	it('Passes dumby `type` prop and checks for correct html rendering', () => {
-		const wrapper = shallow(<NotificationItem type="default" value="test" />);
-		expect(wrapper.find('li').text()).toBe('test');
-	})
 
-	it('Passes dumby `value` prop and checks for correct html rendering', () => {
-		const wrapper = shallow(<NotificationItem type="default" value="test" />);
-		expect(wrapper.find('li').text()).toBe('test');
-	})
+NotificationItem.propTypes = {
+	type: propTypes.string,
+	value: propTypes.string,
+	html: propTypes.shape({
+		__html: propTypes.string,
+	}),
+	markAsRead: propTypes.func,
+	id: propTypes.number,
+}
 
-	it('Passes dumby `html` prop and checks for correct html rendering', () => {
-		const wrapper = shallow(<NotificationItem html={{ __html: 'dangerouslySetInnerHtml' }} />);
-		expect(wrapper.html()).toContain('dangerouslySetInnerHtml');
-	})
-})
+NotificationItem.defaultProps = {
+	type: 'default',
+	markAsRead: () => {},
+	id: 0,
+}
+
+export default NotificationItem

@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import propTypes from 'prop-types'
 
 
-const NotificationItem = ({ type, value, html, markAsRead, id }) => {
-	if ((type && value) && (typeof type === 'string' && typeof value === 'string') && (!html)) return(<li data-notification-type={type} onClick={() => markAsRead(id)}>{value}</li>)
-	if ((!type) && (html) && (html.__html)) return(<li data-notification-type="default" dangerouslySetInnerHTML={html} onClick={() => markAsRead(id)}></li>)
-	if ((type) && (html) && (html.__html)) return(<li data-notification-type={type} dangerouslySetInnerHTML={html} onClick={() => markAsRead(id)}></li>)
-	return(<li data-notification-type="default" onClick={markAsRead(id)}>NotificationItem: invalid props</li>)
+class NotificationItem extends PureComponent {
+	render() {
+		// props:
+		// - type: string, required, default: 'default'
+		// - value: string
+		// - html: object with key '__html' and value: string
+		if ((this.props.type && this.props.value) && (typeof this.props.type === 'string' && typeof this.props.value === 'string') && (!this.props.html)) return(<li data-notification-type={this.props.type} onClick={this.props.markAsRead}>{this.props.value}</li>)
+		if ((!this.props.type) && (this.props.html) && (this.props.html.__html)) return(<li data-notification-type="default" dangerouslySetInnerHTML={this.props.html} onClick={this.props.markAsRead}></li>)
+		if ((this.props.type) && (this.props.html) && (this.props.html.__html)) return(<li data-notification-type={this.props.type} dangerouslySetInnerHTML={this.props.html} onClick={this.props.markAsRead}></li>)
+		return(<li data-notification-type="default" onClick={this.props.markAsRead}>NotificationItem: invalid props</li>)
+	}
 }
 
 

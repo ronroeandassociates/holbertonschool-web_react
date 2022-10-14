@@ -1,35 +1,76 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
+import close_icon from '../assets/close-icon.png'
+import { getLatestNotification } from '../utils/utils'
+import NotificationItem from './NotificationItem'
+import NotificationItemShape from './NotificationItemShape'
 import propTypes from 'prop-types'
 
+import './Notifications.css'
 
-class NotificationItem extends PureComponent {
+
+class Notification extends Component {
+	// function that logs notification id to console
+	markAsRead(id) {
+		console.log(`Notification ${id} has been read`);
+	}
+
+	// function that makes the file only update when next listNotifications is longer than current
+	shouldComponentUpdate(nextProps) {
+		return nextProps.listNotifications.length > this.props.listNotifications.length;
+	}
+
 	render() {
-		// props:
-		// - type: string, required, default: 'default'
-		// - value: string
-		// - html: object with key '__html' and value: string
-		if ((this.props.type && this.props.value) && (typeof this.props.type === 'string' && typeof this.props.value === 'string') && (!this.props.html)) return(<li data-notification-type={this.props.type} onClick={this.props.markAsRead}>{this.props.value}</li>)
-		if ((!this.props.type) && (this.props.html) && (this.props.html.__html)) return(<li data-notification-type="default" dangerouslySetInnerHTML={this.props.html} onClick={this.props.markAsRead}></li>)
-		if ((this.props.type) && (this.props.html) && (this.props.html.__html)) return(<li data-notification-type={this.props.type} dangerouslySetInnerHTML={this.props.html} onClick={this.props.markAsRead}></li>)
-		return(<li data-notification-type="default" onClick={this.props.markAsRead}>NotificationItem: invalid props</li>)
+		// assign props to local variables
+		const { listNotifications, displayDrawer } = this.props;
+
+		return (
+			<>
+				<div className="menuItem">
+					<p>Your notifications</p>
+				</div>
+				{displayDrawer && (
+					<div className="Notifications">
+						<button style={{
+							position: 'absolute',
+							background: 'transparent',
+							border: 'none',
+							right: '20px',
+						}}
+							aria-label='close'
+							onClick={() => {
+								console.log('Close button has been clicked');
+							}}>
+							<img src={close_icon} alt="close" height="15px" width="15px"></img>
+						</button>
+						<p>Here is the list of notifications</p>
+						<ul>
+							{/* listNotifications is empty condition */}
+							{listNotifications.length === 0 && (
+								<li>
+									<p>No notification available yet</p>
+								</li>
+							)}
+							{/* render listNotifications */}
+							{listNotifications.map(notification => (
+								<NotificationItem key={notification.id} type={notification.type} value={notification.value} html={notification.html} markAsRead={this.markAsRead} id={notification.id} />
+							))}
+						</ul>
+					</div>
+				)}
+			</>
+		)
 	}
 }
 
 
-NotificationItem.propTypes = {
-	type: propTypes.string,
-	value: propTypes.string,
-	html: propTypes.shape({
-		__html: propTypes.string,
-	}),
-	markAsRead: propTypes.func,
-	id: propTypes.number,
+Notification.defaultProps = {
+	displayDrawer: false,
+	listNotifications: [],
 }
 
-NotificationItem.defaultProps = {
-	type: 'default',
-	markAsRead: () => {},
-	id: 0,
+Notification.propTypes = {
+	displayDrawer: propTypes.bool,
+	listNotifications: propTypes.arrayOf(NotificationItemShape),
 }
 
-export default NotificationItem
+export default Notification
