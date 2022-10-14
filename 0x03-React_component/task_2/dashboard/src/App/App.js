@@ -5,6 +5,8 @@ import Login from '../Login/Login'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import CourseList from '../CourseList/CourseList'
+import BodySection from '../BodySection/BodySection'
+import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom'
 import propTypes from 'prop-types'
 
 
@@ -15,20 +17,22 @@ class App extends Component {
 
 	// class function to check if component is mounted
 	componentDidMount() {
-		document.addEventListener('keydown', (e) => {
-			if (e.ctrlKey && e.key === 'h') {
-				alert('Logging you out')
-				// e.preventDefault()
-				this.props.logOut()
-			}
-		})
+		window.addEventListener('keydown', this.keyDownHandler);
+		this.keyDownHandler
 	}
 
 	// class function to check if component is unmounted
 	componentWillUnmount() {
-		document.removeEventListener('keydown', (e) => {});
+		window.removeEventListener('keydown', this.keyDownHandler);
 	}
 
+	// class function to check if ctrl-h is pressed
+	keyDownHandler = (e) => {
+		if (e.keyCode === 72 && e.ctrlKey) {
+			alert('Logging you out');
+			this.props.logOut();
+		}
+	}
 
 	render() {
 		// assign props to local variables
@@ -51,7 +55,17 @@ class App extends Component {
 				<Notifications listNotifications={listNotifications} />
 				<Header />
 				<div className="App-body">
-					{isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
+					{isLoggedIn
+						?
+						<BodySectionWithMarginBottom title="Course list">
+							<CourseList listCourses={listCourses} />
+						</BodySectionWithMarginBottom>
+						:
+						<BodySectionWithMarginBottom title="Login in to continue">
+							<Login />
+						</BodySectionWithMarginBottom>
+					}
+					<BodySection title="News from the School"><p>Boring random text</p></BodySection>
 				</div>
 				<div className="App-footer">
 					<Footer />
@@ -64,7 +78,7 @@ class App extends Component {
 
 App.defaultProps = {
 	isLoggedIn: false,
-	logOut: () => {}
+	logOut: () => {console.log('logOut function console log for testing')}
 }
 
 App.propTypes = {
