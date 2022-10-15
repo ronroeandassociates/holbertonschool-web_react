@@ -28,11 +28,19 @@ const NotificationItem = ({ type, value, html, markAsRead, id }) => {
 
 const itemStyles = StyleSheet.create({
 	urgent: {
-		color: 'red'
+		color: 'red',
+		width: '100%',
+		borderBottom: '1px solid #000000',
+		fontSize: '20px',
+		padding: '10px 8px'
 	},
 
 	default: {
-		color: 'blue'
+		color: 'blue',
+		width: '100%',
+		borderBottom: '1px solid #000000',
+		fontSize: '20px',
+		padding: '10px 8px'
 	}
 })
 

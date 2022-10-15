@@ -23,9 +23,7 @@ class Notification extends Component {
 
 		return (
 			<>
-				<div className="menuItem">
-					<p className={css(notificationStyles.p)}>Your notifications</p>
-				</div>
+				<p className={css(notificationStyles.p)}>Your notifications</p>
 				{displayDrawer && (
 					<div className={css(notificationStyles.notifications)}>
 						<button style={{
@@ -38,7 +36,7 @@ class Notification extends Component {
 							onClick={() => {
 								console.log('Close button has been clicked');
 							}}>
-							<img src={close_icon} alt="close" height="15px" width="15px"></img>
+							<img src={close_icon} className={css(notificationStyles.x_button)} alt="close" height="15px" width="15px"></img>
 						</button>
 						<p>Here is the list of notifications</p>
 						<ul>
@@ -60,17 +58,31 @@ class Notification extends Component {
 	}
 }
 
-const primaryColor = '#E11D3F';
-
 const notificationStyles = StyleSheet.create({
 	notifications: {
-		border: `1 px solid ${primaryColor}`,
-		padding: `1rem`
+		'@media (min-width: 350px)': {
+			position: 'absolute',
+			top: '0px',
+			left: '0px',
+			width: '100%',
+			height: '100%',
+			background: 'white',
+			fontSize: '20px',
+		}
+	},
+
+	x_button: {
+		'@media (min-width: 350px)': {
+			position: 'absolute',
+			top: '15px',
+			right: '10px',
+		}
 	},
 
 	p: {
 		position: 'absolute',
-		right: `3rem`
+		top: `0px`,
+		right: `15px`,
 	},
 })
 

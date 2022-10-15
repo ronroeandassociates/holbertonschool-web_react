@@ -36,13 +36,19 @@ const loginStyles = StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'column',
 		marginBottom: '3rem',
-		paddingTop: '1rem',
-		minHeight: '50vh',
+		height: '100%',
 	},
 
 	inputs: {
-		display: 'flex',
-		flexDirection: 'row',
+		'@media (min-width: 350px)': {
+			display: 'flex',
+			flexDirection: 'column',
+			maxWidth: '200px'
+		},
+		'@media (min-width: 900px)': {
+			display: 'flex',
+			flexDirection: 'row',
+		}
 	},
 
 	input: {
@@ -58,6 +64,7 @@ const loginStyles = StyleSheet.create({
 	button: {
 		height: '21px',
 		marginTop: '0.6rem',
+		maxWidth: '40px',
 	}
 })
 
