@@ -1,4 +1,4 @@
-![0x03-React_component_banner]()
+![0x03-React_component_banner](https://github.com/ronroeandassociates/assets/blob/master/images/0x03-React_component_banner.png)
 
 # 0x03. React component
 

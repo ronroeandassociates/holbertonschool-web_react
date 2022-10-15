@@ -1,4 +1,4 @@
-![0x04-React_inline_styling]()
+![0x04-React_inline_styling](https://github.com/ronroeandassociates/assets/blob/master/images/0x04-React_inline_styling_banner.png)
 
 # 0x04. React inline styling
 
