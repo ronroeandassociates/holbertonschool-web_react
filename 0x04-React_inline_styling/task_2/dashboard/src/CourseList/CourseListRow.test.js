@@ -5,11 +5,6 @@ import CourseListRow from './CourseListRow';
 
 // shallow render CourseListRow component
 describe('<CourseListRow />', () => {
-	beforeEach(() => {
-		StyleSheetTestUtils.suppressStyleInjection();
-	});
-
-
 	it(`When isHeader is true, renders on cell with colspan=2
 	when textSecondCell does not exist`, () => {
 		const wrapper = shallow(<CourseListRow isHeader={true} textFirstCell="test" />);
