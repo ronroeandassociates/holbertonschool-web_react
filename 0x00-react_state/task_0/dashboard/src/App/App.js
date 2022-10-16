@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import Notifications from '../Notifications/Notifications'
 import { getLatestNotification } from '../utils/utils'
 import { StyleSheet, css } from 'aphrodite'
@@ -13,13 +13,18 @@ import propTypes from 'prop-types'
 
 // implement class components
 class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			displayDrawer: false
+		}
+	}
 	// if App component is mounted, check if user is holding down 'control'
 	// and 'h' keys simultaneously, and if so, alert and call logOut function.
 
 	// class function to check if component is mounted
 	componentDidMount() {
 		window.addEventListener('keydown', this.keyDownHandler);
-		this.keyDownHandler
 	}
 
 	// class function to check if component is unmounted
@@ -35,33 +40,49 @@ class App extends Component {
 		}
 	}
 
+	// Changes value of displayDrawer state to true
+	handleDisplayDrawer = () => {
+		this.setState({displayDrawer: true})
+	}
+
+	// Changes value of displayDrawer state to false
+	handleHideDrawer = () => {
+		this.setState({displayDrawer: false})
+	}
+
 	render() {
-		// assign props to local variables
+		// assign props/state to local variables
 		const { isLoggedIn } = this.props;
+		const { displayDrawer } = this.state;
 
 		const listCourses = [
 			{ id: 1, name: 'ES6', credit: '60' },
 			{ id: 2, name: 'Webpack', credit: '20' },
 			{ id: 3, name: 'React', credit: '40' }
 		]
-
+		
 		const listNotifications = [
 			{ id: 1, type: "default", value: "New course available" },
 			{ id: 2, type: "urgent", value: "New resume available" },
 			{ id: 3, html: { __html: getLatestNotification() }, type: "urgent" }
 		]
-
+	
 		return (
 			<div className={css(bodyStyles.App)}>
-				<Notifications listNotifications={listNotifications} />
+				<Notifications 
+					listNotifications={listNotifications}
+					displayDrawer={displayDrawer}
+					handleDisplayDrawer={this.handleDisplayDrawer}
+					handleHideDrawer={this.handleHideDrawer}
+				/>
 				<Header />
 				<div className="App-body">
 					{isLoggedIn
-						?
+						? 
 						<BodySectionWithMarginBottom title="Course list">
 							<CourseList listCourses={listCourses} />
 						</BodySectionWithMarginBottom>
-						:
+						: 
 						<BodySectionWithMarginBottom title="Login in to continue">
 							<Login />
 						</BodySectionWithMarginBottom>
