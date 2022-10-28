@@ -7,7 +7,6 @@ import {
     HIDE_NOTIFICATION_DRAWER
   } from '../actions/uiActionTypes'
   import uiReducer, { initialState } from './uiReducer'
-  // import fetchMock from 'fetch-mock'
 
 
   describe('uiReducer', () => {
