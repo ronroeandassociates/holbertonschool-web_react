@@ -3,37 +3,41 @@ import {
     SET_TYPE_FILTER,
     NotificationTypeFilters,
     FETCH_NOTIFICATIONS_SUCCESS
-} from '../actions/notificationActionTypes';
+    } from '../actions/notificationActionTypes';
+    import notificationsNormalizer from '../schema/notifications';
+    import { Map } from 'immutable';
 
 
-export const initialState = {
+    export const initialState = {
     notifications: [],
     filter: ""
-}
+    }
 
-const notificationReducer = (state = initialState, action) => {
+    const notificationReducer = (state = Map(initialState), action) => {
+    console.log('action before switch: ', action);
     switch (action.type) {
-    case FETCH_NOTIFICATIONS_SUCCESS:
-        return action.data.map(notification => ({...notification, isRead: false}));
-    case MARK_AS_READ:
-        return state.map((notification, index) => {
-        if (index === action.index - 1) {
-            notification.isRead = true;
-        }
-        return notification;
+        case FETCH_NOTIFICATIONS_SUCCESS:
+        const normalizedData = notificationsNormalizer(action.data);
+        console.log('normalizedData in FETCH switch:', normalizedData);
+
+        Object.keys(normalizedData.notifications).forEach(key => {
+            normalizedData.notifications[key].isRead = false;
         });
-    case SET_TYPE_FILTER:
-        return state.map((notification) => {
-        if (NotificationTypeFilters.includes(action.filter)) {
-            notification.isRead = notification.type === action.filter;
-        } else {
-            notification.isRead = false;
-        }
-        return notification;
-        });
-    default:
+
+        // will need to add a filter attribute to the normalizedData object for testing
+        return state.merge(normalizedData);
+
+        case MARK_AS_READ:
+        console.log('state in MARK_AS_READ switch: ', state);
+        console.log('action in MARK_AS_READ switch: ', action);
+        return state.setIn(['notifications', action.notificationId - 1, 'isRead'], true);
+        case SET_TYPE_FILTER:
+        console.log('state in SET_TYPE_FILTER switch: ', state);
+        console.log('action in SET_TYPE_FILTER switch: ', action);
+        return state.set('filter', action.filter);
+        default:
         return state;
     }
-}
+    }
 
 export default notificationReducer;

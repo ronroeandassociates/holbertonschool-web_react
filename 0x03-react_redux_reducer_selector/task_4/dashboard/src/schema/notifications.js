@@ -1,6 +1,5 @@
-const jsonData = require('../../notifications.json');
-const schema = require('normalizr').schema;
-const normalize = require('normalizr').normalize;
+const jsonData = require('../../dist/notifications.json')
+import { normalize, schema } from 'normalizr';
 
 
 const user = new schema.Entity('users');
@@ -16,14 +15,12 @@ const notification = new schema.Entity('notifications', {
 
 export const normalizedData = normalize(jsonData, [notification]);
 
+const notificationsNormalizer = (data) => {
+  const normalizedData = normalize(data, [notification]);
+  return normalizedData.entities;
+}
+
 export const getAllNotificationsByUser = (userId) => {
-  // returns a list containing all 'context' objects from the normalizedData variable
-  // when the author id matches the userId parameter
-  //
-  // @userId: string
-  //
-  // returns: list containing all 'context' objects when
-  // the author id matches the userId parameter
   const myList = [];
   jsonData.forEach((notification) => {
     if (notification.author.id === userId) {
@@ -32,3 +29,5 @@ export const getAllNotificationsByUser = (userId) => {
   })
   return myList;
 }
+
+export default notificationsNormalizer;
